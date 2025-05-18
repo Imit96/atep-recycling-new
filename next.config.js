@@ -1,7 +1,6 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
 
-const nextConfig: NextConfig = {
-  output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
+const nextConfig = {
   images: {
     unoptimized: false,
     remotePatterns: [
@@ -19,4 +18,4 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 };
 
-export default nextConfig;
+module.exports = nextConfig;
