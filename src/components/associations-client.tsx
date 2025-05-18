@@ -67,7 +67,7 @@ export function AssociationsClient({ partners, certifications }: AssociationsCli
 
       {/* Partners Grid */}
       <AnimatedGrid 
-        gridClassName="grid md:grid-cols-2 lg:grid-cols-3 gap-6" 
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" 
         itemClassName=""
       >
         {partners.map((partner, index) => (
