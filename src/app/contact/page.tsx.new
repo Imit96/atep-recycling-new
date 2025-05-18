@@ -1,0 +1,79 @@
+import { ContactClient } from "@/components/contact-client";
+
+export const metadata = {
+  title: "Contact Us | ATEP Recycling",
+  description: "Get in touch with ATEP Recycling for your recycling needs and inquiries",
+};
+
+export default function Contact() {
+  const contactInfo = [
+    {
+      title: "Email",
+      value: "info@ateprecycling.com",
+      icon: "✉️",
+    },
+    {
+      title: "Phone",
+      value: "+234 XXX XXX XXXX",
+      icon: "📞",
+    },
+    {
+      title: "Address",
+      value: "Lagos, Nigeria",
+      icon: "📍",
+    },
+  ];
+  
+  const socialMedia = [
+    {
+      platform: "Twitter",
+      handle: "@ATEPRecycling",
+      url: "https://twitter.com",
+      icon: "🐦"
+    },
+    {
+      platform: "Facebook",
+      handle: "ATEP Recycling",
+      url: "https://facebook.com",
+      icon: "👍"
+    },
+    {
+      platform: "Instagram",
+      handle: "@ateprecycling",
+      url: "https://instagram.com",
+      icon: "📸"
+    },
+    {
+      platform: "LinkedIn",
+      handle: "ATEP Recycling Ltd",
+      url: "https://linkedin.com",
+      icon: "💼"
+    }
+  ];
+  
+  const officeLocations = [
+    {
+      city: "Lagos",
+      address: "123 Recycling Way, Victoria Island, Lagos",
+      phone: "+234 XXX XXX XXXX"
+    },
+    {
+      city: "Abuja",
+      address: "456 Green Street, Central District, Abuja",
+      phone: "+234 XXX XXX XXXX"
+    },
+    {
+      city: "Port Harcourt",
+      address: "789 Environmental Avenue, Port Harcourt",
+      phone: "+234 XXX XXX XXXX"
+    }
+  ];
+
+  return (
+    <ContactClient 
+      contactInfo={contactInfo}
+      socialMedia={socialMedia}
+      officeLocations={officeLocations}
+    />
+  );
+}

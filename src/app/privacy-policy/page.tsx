@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { PrivacyPolicyClient } from "@/components/privacy-policy-client";
 
 export const metadata = {
   title: "Privacy Policy | ATEP Recycling",
@@ -97,54 +97,5 @@ export default function PrivacyPolicy() {
     },
   ];
 
-  return (
-    <div className="container py-16 space-y-16">
-      {/* Hero Section */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Privacy Policy</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          How we collect, use, and protect your information
-        </p>
-      </div>
-
-      {/* Last Updated */}
-      <div className="text-center text-sm text-muted-foreground">
-        Last Updated: May 2024
-      </div>
-
-      {/* Policy Content */}
-      <Card>
-        <CardContent className="p-6 space-y-8">
-          {sections.map((section) => (
-            <div key={section.title} className="space-y-4">
-              <h2 className="text-xl font-semibold">{section.title}</h2>
-              <div className="space-y-2">
-                {section.content.map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className="text-sm text-muted-foreground leading-relaxed"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          {/* Contact Information */}
-          <div className="mt-8 pt-8 border-t space-y-2">
-            <p className="text-sm text-muted-foreground">
-              For privacy-related inquiries or to exercise your rights, please contact our Data Protection Officer at:
-            </p>
-            <p className="text-sm">
-              ATEP Recycling<br />
-              Data Protection Officer<br />
-              Lagos, Nigeria<br />
-              Email: privacy@ateprecycling.com
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  return <PrivacyPolicyClient sections={sections} />;
 }

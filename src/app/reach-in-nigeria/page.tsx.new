@@ -1,0 +1,110 @@
+import { ReachInNigeriaClient } from "@/components/reach-nigeria-client";
+
+export const metadata = {
+  title: "Our Reach in Nigeria | ATEP Recycling",
+  description: "Learn about ATEP Recycling's locations and service areas across Nigeria",
+};
+
+export default function ReachInNigeriaPage() {
+  const locations = [
+    {
+      city: "Lagos",
+      active: true,
+      address: "123 Recycling Way, Victoria Island, Lagos",
+      services: [
+        "Plastic Collection", 
+        "Paper Recycling", 
+        "E-Waste Processing",
+        "Metal Recycling",
+        "Glass Collection"
+      ],
+    },
+    {
+      city: "Abuja",
+      active: true,
+      address: "456 Green Street, Central District, Abuja",
+      services: [
+        "Plastic Collection", 
+        "Paper Recycling", 
+        "Corporate Collection Services"
+      ],
+    },
+    {
+      city: "Port Harcourt",
+      active: true,
+      address: "789 Environmental Avenue, Port Harcourt",
+      services: [
+        "Plastic Collection", 
+        "Industrial Waste Management", 
+        "Metal Recycling"
+      ],
+    },
+    {
+      city: "Ibadan",
+      active: true,
+      address: "101 Sustainability Road, Ibadan",
+      services: [
+        "Plastic Collection", 
+        "Paper Recycling"
+      ],
+    },
+    {
+      city: "Kano",
+      active: false,
+      address: "202 Eco Street, Kano",
+      services: [
+        "Plastic Collection", 
+        "Limited Corporate Services"
+      ],
+    },
+    {
+      city: "Calabar",
+      active: false,
+      openingSoon: true,
+      address: "303 Recycling Avenue, Calabar",
+      services: [
+        "Coming Soon"
+      ],
+    },
+  ];
+
+  const partners = [
+    {
+      name: "GreenTech Recyclers",
+      location: "Lagos & Ogun",
+      type: "Collection Partner"
+    },
+    {
+      name: "EcoBin Nigeria",
+      location: "Abuja",
+      type: "Processing Partner"
+    },
+    {
+      name: "Waste Management Leaders",
+      location: "Port Harcourt",
+      type: "Collection Partner"
+    },
+    {
+      name: "Sustainable Earth Nigeria",
+      location: "Ibadan",
+      type: "Collection & Education"
+    },
+    {
+      name: "Clean Cities Initiative",
+      location: "Multiple Locations",
+      type: "Awareness Partner"
+    },
+    {
+      name: "RecycleNow Ltd",
+      location: "Kano",
+      type: "Collection Partner"
+    }
+  ];
+
+  return (
+    <ReachInNigeriaClient 
+      locations={locations}
+      partners={partners}
+    />
+  );
+}
