@@ -1,21 +1,22 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  output: 'standalone',
   images: {
     unoptimized: false,
     remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
       {
         protocol: 'https',
         hostname: 'ateprecycling.com',
       }
     ],
   },
+  experimental: {
+    scrollRestoration: true,
+  },
   poweredByHeader: false,
-  reactStrictMode: true,
+  reactStrictMode: false, // Disable strict mode to prevent double transitions
+  swcMinify: true,
 };
 
 module.exports = nextConfig;

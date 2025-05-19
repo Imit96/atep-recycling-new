@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -10,147 +11,73 @@ interface PageTransitionProps {
 
 export function PageTransition({ 
   children, 
-  transitionType = "fancy" 
+  transitionType = "fade" 
 }: PageTransitionProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Force prefetching
+  useEffect(() => {
+    // Get all internal links and prefetch them
+    const prefetchLinks = () => {
+      const links = document.querySelectorAll('a[href^="/"]');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) {
+          router.prefetch(href);
+        }
+      });
+    };
+    
+    // Initial prefetch
+    prefetchLinks();
+    
+    // Setup mutation observer to catch dynamically added links
+    const observer = new MutationObserver(prefetchLinks);
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    return () => observer.disconnect();
+  }, [router]);
   
-  // Different transition variants based on the selected type
   const getVariants = () => {
     switch(transitionType) {
       case "fade":
         return {
           hidden: { opacity: 0 },
-          enter: { 
-            opacity: 1,
-            transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-          },
-          exit: { 
-            opacity: 0,
-            transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
-          }
+          enter: { opacity: 1, transition: { duration: 0.3 } },
+          exit: { opacity: 0, transition: { duration: 0.3 } },
         };
       case "slide":
         return {
-          hidden: { opacity: 0, x: -300 },
-          enter: { 
-            opacity: 1, 
-            x: 0,
-            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-          },
-          exit: { 
-            opacity: 0, 
-            x: 300,
-            transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-          }
+          hidden: { x: -300, opacity: 0 },
+          enter: { x: 0, opacity: 1, transition: { duration: 0.3 } },
+          exit: { x: 300, opacity: 0, transition: { duration: 0.3 } },
         };
       case "slide-up":
         return {
-          hidden: { opacity: 0, y: 200 },
-          enter: { 
-            opacity: 1, 
-            y: 0,
-            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-          },
-          exit: { 
-            opacity: 0, 
-            y: -100,
-            transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-          }
+          hidden: { y: 300, opacity: 0 },
+          enter: { y: 0, opacity: 1, transition: { duration: 0.3 } },
+          exit: { y: -300, opacity: 0, transition: { duration: 0.3 } },
         };
       case "zoom":
         return {
-          hidden: { opacity: 0, scale: 0.95 },
-          enter: { 
-            opacity: 1, 
-            scale: 1,
-            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-          },
-          exit: { 
-            opacity: 0, 
-            scale: 1.05,
-            transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-          }
+          hidden: { scale: 0.95, opacity: 0 },
+          enter: { scale: 1, opacity: 1, transition: { duration: 0.3 } },
+          exit: { scale: 1.05, opacity: 0, transition: { duration: 0.3 } },
         };
       case "flip":
         return {
-          hidden: { 
-            opacity: 0, 
-            rotateY: 90,
-            perspective: 1000
-          },
-          enter: { 
-            opacity: 1, 
-            rotateY: 0,
-            transition: { 
-              duration: 0.6, 
-              ease: [0.22, 1, 0.36, 1],
-              delay: 0.1
-            }
-          },
-          exit: { 
-            opacity: 0, 
-            rotateY: -90,
-            transition: { 
-              duration: 0.5, 
-              ease: [0.22, 1, 0.36, 1] 
-            }
-          }
+          hidden: { rotateY: 90, opacity: 0 },
+          enter: { rotateY: 0, opacity: 1, transition: { duration: 0.3 } },
+          exit: { rotateY: -90, opacity: 0, transition: { duration: 0.3 } },
         };
       case "fancy":
       default:
         return {
-          hidden: { 
-            opacity: 0, 
-            y: 20,
-            scale: 0.98,
-            filter: "blur(8px)"
-          },
-          enter: { 
-            opacity: 1, 
-            y: 0,
-            scale: 1,
-            filter: "blur(0px)",
-            transition: {
-              duration: 0.5,
-              ease: [0.22, 1, 0.36, 1],
-              staggerChildren: 0.1,
-              when: "beforeChildren",
-              delay: 0.1
-            }
-          },
-          exit: { 
-            opacity: 0, 
-            y: -20,
-            scale: 0.98,
-            filter: "blur(8px)",
-            transition: {
-              duration: 0.4,
-              ease: [0.22, 1, 0.36, 1]
-            }
-          }
+          hidden: { y: 20, opacity: 0 },
+          enter: { y: 0, opacity: 1, transition: { duration: 0.3 } },
+          exit: { y: 20, opacity: 0, transition: { duration: 0.3 } },
         };
-    }
-  };
-  
-  const variants = getVariants();
-
-  // Child animations for staggered effects
-  const childVariants = {
-    hidden: { opacity: 0, y: 15 },
-    enter: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      transition: { 
-        duration: 0.3,
-        ease: [0.22, 1, 0.36, 1]
-      } 
     }
   };
 
@@ -158,15 +85,17 @@ export function PageTransition({
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        variants={variants}
         initial="hidden"
         animate="enter"
         exit="exit"
-        className="w-full h-full"
+        variants={getVariants()}
+        className="min-h-screen flex flex-col"
+        onAnimationComplete={() => {
+          // Ensure scroll to top after transition completes
+          window.scrollTo(0, 0);
+        }}
       >
-        <motion.div variants={childVariants} className="h-full">
-          {children}
-        </motion.div>
+        {children}
       </motion.div>
     </AnimatePresence>
   );

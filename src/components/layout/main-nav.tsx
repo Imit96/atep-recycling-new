@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import { Link } from "@/components/ui/link";
 import {
   NavigationMenu,
   NavigationMenuItem,
